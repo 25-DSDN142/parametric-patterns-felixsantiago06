@@ -13,8 +13,10 @@ let fill_b = 0;
 
 // Sliders for interactivity (first half)
 let strokeWeightSlider, fillAlphaSlider, rectWidthSlider;
+let spacingSlider, countSlider, rowCountSlider;
 let strokeWeightLabel, fillAlphaLabel, rectWidthLabel;
-
+let spacingLabel, countLabel, rowCountLabel;
+let colorInput;
 
 
 function setup_wallpaper(pWallpaper) {
@@ -50,6 +52,31 @@ function setup_wallpaper(pWallpaper) {
   rectWidthSlider.position(10, 320);
   rectWidthSlider.style('width', '180px');
   rectWidthSlider.input(redraw);
+
+  spacingLabel = createDiv('Spacing');
+  spacingLabel.position(10, 350);
+  spacingSlider = createSlider(0, 50, spacing, 1);
+  spacingSlider.position(10, 370);
+  spacingSlider.style('width', '180px');
+  spacingSlider.input(redraw);
+
+  countLabel = createDiv('Column Count');
+  countLabel.position(10, 400);
+  countSlider = createSlider(1, 10, count, 1);
+  countSlider.position(10, 420);
+  countSlider.style('width', '180px');
+  countSlider.input(redraw);
+
+  rowCountLabel = createDiv('Row Count');
+  rowCountLabel.position(10, 450);
+  rowCountSlider = createSlider(1, 10, row_count, 1);
+  rowCountSlider.position(10, 470);
+  rowCountSlider.style('width', '180px');
+  rowCountSlider.input(redraw);
+
+  colorInput = createColorPicker('#000000');
+  colorInput.position(10, 500);
+  colorInput.input(redraw);
 
   noLoop();
 }
