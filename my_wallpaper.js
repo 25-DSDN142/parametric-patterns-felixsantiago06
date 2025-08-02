@@ -93,7 +93,7 @@ function my_symbol() { // do not rename this function. Treat this similarly to a
   let rw = rectWidthSlider.value();
   let sp = spacingSlider.value();
   let col = colorInput.color();
-  // Clamp columns and rows so rectangles never escape the 200x200 cell
+  // Clamp columns and rows so rectangles never escape the 300x300 cell
   let maxCols = Math.max(1, Math.floor((gridSize + sp) / (rw + sp)));
   let maxRows = Math.max(1, Math.floor((gridSize + sp) / (rect_height + sp)));
   let cols = Math.min(countSlider.value(), maxCols);
