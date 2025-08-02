@@ -32,10 +32,16 @@ function wallpaper_background() {
 function my_symbol() { // do not rename this function. Treat this similarly to a Draw function
   noStroke();
   push();
+  // Calculate total width and height of the block of rectangles
+  let total_width = count * rect_width + (count - 1) * spacing;
+  let total_height = row_count * rect_height + (row_count - 1) * spacing;
+  // Center the block in the 200x200 grid cell
+  let start_x = (200 - total_width) / 2;
+  let start_y = (200 - total_height) / 2;
   for (let i = 0; i < count; i++) {
     for (let j = 0; j < row_count; j++) {
-      let x = 40 + i * (rect_width + spacing);
-      let y = 40 + j * (rect_height + spacing);
+      let x = start_x + i * (rect_width + spacing);
+      let y = start_y + j * (rect_height + spacing);
 
       if (stroke_weight) {
         stroke(0);
@@ -43,7 +49,6 @@ function my_symbol() { // do not rename this function. Treat this similarly to a
       } else {
         noStroke();
       }
-      fill(0, fill_alpha); // black color
       fill(fill_r, fill_g, fill_b, fill_alpha); 
       rect(x, y, rect_width, rect_height);
     }
