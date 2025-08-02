@@ -34,12 +34,12 @@ function setup_wallpaper(pWallpaper) {
   // Create sliders for interactivity (first half)
   strokeWeightLabel = createDiv('Stroke Weight');
   strokeWeightLabel.position(10, 200);
-  strokeWeightSlider = createSlider(0, 20, stroke_weight, 1);
+  strokeWeightSlider = createSlider(0, 5, stroke_weight, 1);
   strokeWeightSlider.position(10, 220);
   strokeWeightSlider.style('width', '180px');
   strokeWeightSlider.input(redraw);
 
-  fillAlphaLabel = createDiv('Fill Alpha');
+  fillAlphaLabel = createDiv('Fill Opacity');
   fillAlphaLabel.position(10, 250);
   fillAlphaSlider = createSlider(0, 255, fill_alpha, 1);
   fillAlphaSlider.position(10, 270);
@@ -53,7 +53,7 @@ function setup_wallpaper(pWallpaper) {
   rectWidthSlider.style('width', '180px');
   rectWidthSlider.input(redraw);
 
-  spacingLabel = createDiv('Spacing');
+    spacingLabel = createDiv('Spacing');
   spacingLabel.position(10, 350);
   spacingSlider = createSlider(0, 50, spacing, 1);
   spacingSlider.position(10, 370);
@@ -86,22 +86,26 @@ function wallpaper_background() {
 }
 
 function my_symbol() { // do not rename this function. Treat this similarly to a Draw function
-  // Use slider values for interactivity (first half)
+  // Use slider values for interactivity (all controls)
   let sw = strokeWeightSlider.value();
   let fa = fillAlphaSlider.value();
   let rw = rectWidthSlider.value();
+  let sp = spacingSlider.value();
+  let cols = countSlider.value();
+  let rows = rowCountSlider.value();
+  let col = colorInput.color();
 
   push();
   // Calculate total width and height of the block of rectangles
-  let total_width = count * rw + (count - 1) * spacing;
-  let total_height = row_count * rect_height + (row_count - 1) * spacing;
+  let total_width = cols * rw + (cols - 1) * sp;
+  let total_height = rows * rect_height + (rows - 1) * sp;
   // Center the block in the 200x200 grid cell
   let start_x = (200 - total_width) / 2;
   let start_y = (200 - total_height) / 2;
-  for (let i = 0; i < count; i++) {
-    for (let j = 0; j < row_count; j++) {
-      let x = start_x + i * (rw + spacing);
-      let y = start_y + j * (rect_height + spacing);
+  for (let i = 0; i < cols; i++) {
+    for (let j = 0; j < rows; j++) {
+      let x = start_x + i * (rw + sp);
+      let y = start_y + j * (rect_height + sp);
 
       if (sw) {
         stroke(0);
@@ -109,7 +113,7 @@ function my_symbol() { // do not rename this function. Treat this similarly to a
       } else {
         noStroke();
       }
-      fill(fill_r, fill_g, fill_b, fa); 
+      fill(col.levels[0], col.levels[1], col.levels[2], fa); 
       rect(x, y, rw, rect_height);
     }
   }
