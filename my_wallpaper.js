@@ -11,6 +11,10 @@ let fill_g = 0;
 let fill_b = 0;
 
 
+// Sliders for interactivity (first half)
+let strokeWeightSlider, fillAlphaSlider, rectWidthSlider;
+
+
 
 function setup_wallpaper(pWallpaper) {
   pWallpaper.output_mode(DEVELOP_GLYPH);
@@ -23,6 +27,24 @@ function setup_wallpaper(pWallpaper) {
   pWallpaper.grid_settings.cell_width  = 200;
   pWallpaper.grid_settings.cell_height = 200;
   pWallpaper.grid_settings.row_offset  = 50;
+
+  // Create sliders for interactivity (first half)
+  strokeWeightSlider = createSlider(0, 20, stroke_weight, 1);
+  strokeWeightSlider.position(10, 220);
+  strokeWeightSlider.style('width', '180px');
+  strokeWeightSlider.input(redraw);
+
+  fillAlphaSlider = createSlider(0, 255, fill_alpha, 1);
+  fillAlphaSlider.position(10, 250);
+  fillAlphaSlider.style('width', '180px');
+  fillAlphaSlider.input(redraw);
+
+  rectWidthSlider = createSlider(1, 100, rect_width, 1);
+  rectWidthSlider.position(10, 280);
+  rectWidthSlider.style('width', '180px');
+  rectWidthSlider.input(redraw);
+
+  noLoop();
 }
 
 function wallpaper_background() {
@@ -30,27 +52,31 @@ function wallpaper_background() {
 }
 
 function my_symbol() { // do not rename this function. Treat this similarly to a Draw function
-  noStroke();
+  // Use slider values for interactivity (first half)
+  let sw = strokeWeightSlider.value();
+  let fa = fillAlphaSlider.value();
+  let rw = rectWidthSlider.value();
+
   push();
   // Calculate total width and height of the block of rectangles
-  let total_width = count * rect_width + (count - 1) * spacing;
+  let total_width = count * rw + (count - 1) * spacing;
   let total_height = row_count * rect_height + (row_count - 1) * spacing;
   // Center the block in the 200x200 grid cell
   let start_x = (200 - total_width) / 2;
   let start_y = (200 - total_height) / 2;
   for (let i = 0; i < count; i++) {
     for (let j = 0; j < row_count; j++) {
-      let x = start_x + i * (rect_width + spacing);
+      let x = start_x + i * (rw + spacing);
       let y = start_y + j * (rect_height + spacing);
 
-      if (stroke_weight) {
+      if (sw) {
         stroke(0);
-        strokeWeight(stroke_weight);
+        strokeWeight(sw);
       } else {
         noStroke();
       }
-      fill(fill_r, fill_g, fill_b, fill_alpha); 
-      rect(x, y, rect_width, rect_height);
+      fill(fill_r, fill_g, fill_b, fa); 
+      rect(x, y, rw, rect_height);
     }
   }
   pop();
