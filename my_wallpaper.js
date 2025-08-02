@@ -9,6 +9,7 @@ let row_count = 5;
 let fill_r = 200;
 let fill_g = 0;
 let fill_b = 0;
+const gridSize = 300;
 
 
 // Sliders for interactivity (first half)
@@ -27,8 +28,8 @@ function setup_wallpaper(pWallpaper) {
   pWallpaper.show_guide(true); //set this to false when you're ready to print
 
   //Grid settings
-  pWallpaper.grid_settings.cell_width  = 200;
-  pWallpaper.grid_settings.cell_height = 200;
+  pWallpaper.grid_settings.cell_width  = gridSize;
+  pWallpaper.grid_settings.cell_height = gridSize;
   pWallpaper.grid_settings.row_offset  = 50;
 
   // Create sliders for interactivity (first half)
@@ -93,13 +94,13 @@ function my_symbol() { // do not rename this function. Treat this similarly to a
   let sp = spacingSlider.value();
   let col = colorInput.color();
   // Clamp columns and rows so rectangles never escape the 200x200 cell
-  let maxCols = Math.max(1, Math.floor((200 + sp) / (rw + sp)));
-  let maxRows = Math.max(1, Math.floor((200 + sp) / (rect_height + sp)));
+  let maxCols = Math.max(1, Math.floor((gridSize + sp) / (rw + sp)));
+  let maxRows = Math.max(1, Math.floor((gridSize + sp) / (rect_height + sp)));
   let cols = Math.min(countSlider.value(), maxCols);
   let rows = Math.min(rowCountSlider.value(), maxRows);
   // Clamp spacing so rectangles never escape the cell
-  let maxSpacingCols = cols > 1 ? Math.floor((200 - (cols * rw)) / (cols - 1)) : 0;
-  let maxSpacingRows = rows > 1 ? Math.floor((200 - (rows * rect_height)) / (rows - 1)) : 0;
+  let maxSpacingCols = cols > 1 ? Math.floor((gridSize - (cols * rw)) / (cols - 1)) : 0;
+  let maxSpacingRows = rows > 1 ? Math.floor((gridSize - (rows * rect_height)) / (rows - 1)) : 0;
   sp = Math.min(sp, maxSpacingCols, maxSpacingRows);
 
   push();
@@ -107,8 +108,8 @@ function my_symbol() { // do not rename this function. Treat this similarly to a
   let total_width = cols * rw + (cols - 1) * sp;
   let total_height = rows * rect_height + (rows - 1) * sp;
   // Center the block in the 200x200 grid cell
-  let start_x = (200 - total_width) / 2;
-  let start_y = (200 - total_height) / 2;
+  let start_x = (gridSize - total_width) / 2;
+  let start_y = (gridSize - total_height) / 2;
   for (let i = 0; i < cols; i++) {
     for (let j = 0; j < rows; j++) {
       let x = start_x + i * (rw + sp);
