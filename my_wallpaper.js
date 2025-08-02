@@ -13,6 +13,7 @@ let fill_b = 0;
 
 // Sliders for interactivity (first half)
 let strokeWeightSlider, fillAlphaSlider, rectWidthSlider;
+let strokeWeightLabel, fillAlphaLabel, rectWidthLabel;
 
 
 
@@ -29,18 +30,24 @@ function setup_wallpaper(pWallpaper) {
   pWallpaper.grid_settings.row_offset  = 50;
 
   // Create sliders for interactivity (first half)
+  strokeWeightLabel = createDiv('Stroke Weight');
+  strokeWeightLabel.position(10, 200);
   strokeWeightSlider = createSlider(0, 20, stroke_weight, 1);
   strokeWeightSlider.position(10, 220);
   strokeWeightSlider.style('width', '180px');
   strokeWeightSlider.input(redraw);
 
+  fillAlphaLabel = createDiv('Fill Alpha');
+  fillAlphaLabel.position(10, 250);
   fillAlphaSlider = createSlider(0, 255, fill_alpha, 1);
-  fillAlphaSlider.position(10, 250);
+  fillAlphaSlider.position(10, 270);
   fillAlphaSlider.style('width', '180px');
   fillAlphaSlider.input(redraw);
 
+  rectWidthLabel = createDiv('Rectangle Width');
+  rectWidthLabel.position(10, 300);
   rectWidthSlider = createSlider(1, 100, rect_width, 1);
-  rectWidthSlider.position(10, 280);
+  rectWidthSlider.position(10, 320);
   rectWidthSlider.style('width', '180px');
   rectWidthSlider.input(redraw);
 
