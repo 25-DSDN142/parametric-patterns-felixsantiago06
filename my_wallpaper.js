@@ -1,6 +1,8 @@
-//your parameter variables go here!
+//the parameter variables
 let rect_width  = 20;
 let rect_height = 30;
+let spacing = 10;
+let count = 5;
 
 
 function setup_wallpaper(pWallpaper) {
@@ -21,5 +23,13 @@ function wallpaper_background() {
 }
 
 function my_symbol() { // do not rename this function. Treat this similarly to a Draw function
-  rect(40 ,40, rect_width, rect_height);
+  noStroke();
+  push();
+  for (let i = 0; i < count; i++) {
+    let x = 40 + i * (rect_width + spacing);
+    let y = 40;
+    fill(0); // black color
+    rect(x, y, rect_width, rect_height);
+  }
+  pop();
 }
