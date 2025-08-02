@@ -53,7 +53,7 @@ function setup_wallpaper(pWallpaper) {
   rectWidthSlider.style('width', '180px');
   rectWidthSlider.input(redraw);
 
-    spacingLabel = createDiv('Spacing');
+  spacingLabel = createDiv('Spacing');
   spacingLabel.position(10, 350);
   spacingSlider = createSlider(0, 50, spacing, 1);
   spacingSlider.position(10, 370);
@@ -91,9 +91,16 @@ function my_symbol() { // do not rename this function. Treat this similarly to a
   let fa = fillAlphaSlider.value();
   let rw = rectWidthSlider.value();
   let sp = spacingSlider.value();
-  let cols = countSlider.value();
-  let rows = rowCountSlider.value();
   let col = colorInput.color();
+  // Clamp columns and rows so rectangles never escape the 200x200 cell
+  let maxCols = Math.max(1, Math.floor((200 + sp) / (rw + sp)));
+  let maxRows = Math.max(1, Math.floor((200 + sp) / (rect_height + sp)));
+  let cols = Math.min(countSlider.value(), maxCols);
+  let rows = Math.min(rowCountSlider.value(), maxRows);
+  // Clamp spacing so rectangles never escape the cell
+  let maxSpacingCols = cols > 1 ? Math.floor((200 - (cols * rw)) / (cols - 1)) : 0;
+  let maxSpacingRows = rows > 1 ? Math.floor((200 - (rows * rect_height)) / (rows - 1)) : 0;
+  sp = Math.min(sp, maxSpacingCols, maxSpacingRows);
 
   push();
   // Calculate total width and height of the block of rectangles
