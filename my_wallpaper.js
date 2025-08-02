@@ -3,6 +3,8 @@ let rect_width  = 20;
 let rect_height = 30;
 let spacing = 10;
 let count = 5;
+let stroke_weight = 2;
+let fill_alpha = 200;
 
 
 function setup_wallpaper(pWallpaper) {
@@ -28,7 +30,14 @@ function my_symbol() { // do not rename this function. Treat this similarly to a
   for (let i = 0; i < count; i++) {
     let x = 40 + i * (rect_width + spacing);
     let y = 40;
-    fill(0); // black color
+
+    if (stroke_weight) {
+      stroke(0);
+      strokeWeight(stroke_weight);
+    } else {
+      noStroke();
+    }
+    fill(0, fill_alpha); // black color
     rect(x, y, rect_width, rect_height);
   }
   pop();
